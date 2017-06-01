@@ -35,15 +35,11 @@ public class SwiftModalWebVC: UINavigationController {
         self.init(request: URLRequest(url: pageURL), theme: theme, dismissButtonStyle: dismissButtonStyle)
     }
     
-    public init(request: URLRequest, theme: SwiftModalWebVCTheme = .lightBlue, dismissButtonStyle: SwiftModalWebVCDismissButtonStyle = .arrow) {
+    public init(request: URLRequest, theme: SwiftModalWebVCTheme = .dark, dismissButtonStyle: SwiftModalWebVCDismissButtonStyle = .arrow) {
         let webViewController = SwiftWebVC(aRequest: request)
         webViewController.storedStatusColor = UINavigationBar.appearance().barStyle
         
-        let dismissButtonImageName = (dismissButtonStyle == .arrow) ? "SwiftWebVCDismiss" : "SwiftWebVCDismissAlt"
-        let doneButton = UIBarButtonItem(image: SwiftWebVC.bundledImage(named: dismissButtonImageName),
-                                         style: UIBarButtonItemStyle.plain,
-                                         target: webViewController,
-                                         action: #selector(SwiftWebVC.doneButtonTapped))
+        let doneButton = UIBarButtonItem(title: "\u{2190} MY AIA", style: UIBarButtonItemStyle.plain,target: webViewController, action: #selector(SwiftWebVC.doneButtonTapped))
         
         switch theme {
         case .lightBlue:
@@ -60,15 +56,10 @@ public class SwiftModalWebVC: UINavigationController {
             doneButton.tintColor = UIColor.white
             webViewController.buttonColor = UIColor.white
             webViewController.titleColor = UIColor.groupTableViewBackground
-            UINavigationBar.appearance().barStyle = UIBarStyle.black
+            UINavigationBar.appearance().barStyle = UIBarStyle.blackOpaque
         }
         
-        if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad) {
-            webViewController.navigationItem.leftBarButtonItem = doneButton
-        }
-        else {
-            webViewController.navigationItem.rightBarButtonItem = doneButton
-        }
+        webViewController.navigationItem.leftBarButtonItem = doneButton
         super.init(rootViewController: webViewController)
     }
     
