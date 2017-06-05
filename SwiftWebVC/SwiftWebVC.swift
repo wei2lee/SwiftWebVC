@@ -56,14 +56,14 @@ public class SwiftWebVC: UIViewController {
         tempStopBarButtonItem.tintColor = self.buttonColor
         return tempStopBarButtonItem
     }()
-    
-    lazy var actionBarButtonItem: UIBarButtonItem = {
-        var tempActionBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.action,
-                                                      target: self,
-                                                      action: #selector(SwiftWebVC.actionButtonTapped(_:)))
-        tempActionBarButtonItem.tintColor = self.buttonColor
-        return tempActionBarButtonItem
-    }()
+    //
+    //    lazy var actionBarButtonItem: UIBarButtonItem = {
+    //        var tempActionBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.action,
+    //                                                      target: self,
+    //                                                      action: #selector(SwiftWebVC.actionButtonTapped(_:)))
+    //        tempActionBarButtonItem.tintColor = self.buttonColor
+    //        return tempActionBarButtonItem
+    //    }()
     
     
     lazy var webView: WKWebView = {
@@ -175,7 +175,7 @@ public class SwiftWebVC: UIViewController {
             let toolbarWidth: CGFloat = 250.0
             fixedSpace.width = 35.0
             
-            let items: NSArray = [fixedSpace, refreshStopBarButtonItem, fixedSpace, backBarButtonItem, fixedSpace, forwardBarButtonItem, fixedSpace, actionBarButtonItem]
+            let items: NSArray = [fixedSpace, refreshStopBarButtonItem, fixedSpace, backBarButtonItem, fixedSpace, forwardBarButtonItem, fixedSpace ]
             
             let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0.0, y: 0.0, width: toolbarWidth, height: 44.0))
             if !closing {
@@ -192,7 +192,7 @@ public class SwiftWebVC: UIViewController {
             
         }
         else {
-            let items: NSArray = [fixedSpace, backBarButtonItem, flexibleSpace, forwardBarButtonItem, flexibleSpace, refreshStopBarButtonItem, flexibleSpace, actionBarButtonItem, fixedSpace]
+            let items: NSArray = [fixedSpace, backBarButtonItem, flexibleSpace, forwardBarButtonItem, flexibleSpace, refreshStopBarButtonItem, fixedSpace]
             
             if !closing {
                 if presentingViewController == nil {
@@ -258,9 +258,9 @@ public class SwiftWebVC: UIViewController {
         UINavigationBar.appearance().barStyle = storedStatusColor!
         self.dismiss(animated: true, completion: nil)
     }
-
+    
     // MARK: - Class Methods
-
+    
     /// Helper function to get image within SwiftWebVCResources bundle
     ///
     /// - parameter named: The name of the image in the SwiftWebVCResources bundle
