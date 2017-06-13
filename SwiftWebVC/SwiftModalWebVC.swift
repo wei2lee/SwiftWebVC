@@ -19,24 +19,24 @@ public class SwiftModalWebVC: UINavigationController {
     
     weak var webViewDelegate: UIWebViewDelegate? = nil
     
-    public convenience init(urlString: String) {
-        self.init(pageURL: URL(string: urlString)!)
+    public convenience init(urlString: String, titleString: String) {
+        self.init(pageURL: URL(string: urlString)!, title:titleString)
     }
     
-    public convenience init(urlString: String, theme: SwiftModalWebVCTheme, dismissButtonStyle: SwiftModalWebVCDismissButtonStyle) {
-        self.init(pageURL: URL(string: urlString)!, theme: theme, dismissButtonStyle: dismissButtonStyle)
+    public convenience init(urlString: String, theme: SwiftModalWebVCTheme, dismissButtonStyle: SwiftModalWebVCDismissButtonStyle, title: String) {
+        self.init(pageURL: URL(string: urlString)!, theme: theme, dismissButtonStyle: dismissButtonStyle, title:title)
     }
     
-    public convenience init(pageURL: URL) {
-        self.init(request: URLRequest(url: pageURL))
+    public convenience init(pageURL: URL, title:String) {
+        self.init(request: URLRequest(url: pageURL), title:title)
     }
     
-    public convenience init(pageURL: URL, theme: SwiftModalWebVCTheme, dismissButtonStyle: SwiftModalWebVCDismissButtonStyle) {
-        self.init(request: URLRequest(url: pageURL), theme: theme, dismissButtonStyle: dismissButtonStyle)
+    public convenience init(pageURL: URL, theme: SwiftModalWebVCTheme, dismissButtonStyle: SwiftModalWebVCDismissButtonStyle, title: String) {
+        self.init(request: URLRequest(url: pageURL), theme: theme, dismissButtonStyle: dismissButtonStyle, title:title)
     }
     
-    public init(request: URLRequest, theme: SwiftModalWebVCTheme = .dark, dismissButtonStyle: SwiftModalWebVCDismissButtonStyle = .arrow) {
-        let webViewController = SwiftWebVC(aRequest: request)
+    public init(request: URLRequest, theme: SwiftModalWebVCTheme = .dark, dismissButtonStyle: SwiftModalWebVCDismissButtonStyle = .arrow, title: String) {
+        let webViewController = SwiftWebVC(aRequest: request, title: title)
         webViewController.storedStatusColor = UINavigationBar.appearance().barStyle
         
         let doneButton = UIBarButtonItem(title: "\u{2190} MY AIA", style: UIBarButtonItemStyle.plain,target: webViewController, action: #selector(SwiftWebVC.doneButtonTapped))

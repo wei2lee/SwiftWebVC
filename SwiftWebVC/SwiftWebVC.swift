@@ -20,6 +20,7 @@ public class SwiftWebVC: UIViewController {
     var buttonColor: UIColor? = nil
     var titleColor: UIColor? = nil
     var closing: Bool! = false
+    var titleString: String = ""
     
     lazy var backBarButtonItem: UIBarButtonItem =  {
         var tempBackBarButtonItem = UIBarButtonItem(image: SwiftWebVC.bundledImage(named: "SwiftWebVCBack"),
@@ -86,17 +87,18 @@ public class SwiftWebVC: UIViewController {
         webView.navigationDelegate = nil;
     }
     
-    public convenience init(urlString: String) {
-        self.init(pageURL: URL(string: urlString)!)
+    public convenience init(urlString: String, title: String) {
+        self.init(pageURL: URL(string: urlString)!, title: title)
     }
     
-    public convenience init(pageURL: URL) {
-        self.init(aRequest: URLRequest(url: pageURL))
+    public convenience init(pageURL: URL, title: String) {
+        self.init(aRequest: URLRequest(url: pageURL), title: title)
     }
     
-    public convenience init(aRequest: URLRequest) {
+    public convenience init(aRequest: URLRequest, title: String) {
         self.init()
         self.request = aRequest
+        self.titleString = title
     }
     
     func loadRequest(_ request: URLRequest) {
@@ -130,7 +132,7 @@ public class SwiftWebVC: UIViewController {
             navBarTitle.textColor = self.titleColor
         }
         navBarTitle.shadowOffset = CGSize(width: 0, height: 1);
-        navBarTitle.font = UIFont(name: "HelveticaNeue-Medium", size: 17.0)
+        navBarTitle.font = UIFont(name: "Arial-Bold", size: 17.0)
         
         navigationItem.titleView = navBarTitle;
         
@@ -293,7 +295,7 @@ extension SwiftWebVC: WKNavigationDelegate {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
         
         webView.evaluateJavaScript("document.title", completionHandler: {(response, error) in
-            self.navBarTitle.text = response as! String?
+            self.navBarTitle.text = self.titleString
             self.navBarTitle.sizeToFit()
             self.updateToolbarItems()
         })
